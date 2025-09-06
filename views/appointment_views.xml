@@ -58,8 +58,4 @@
         <field name="views" eval="[(ref('view_appointment_tree'),'tree'),(ref('view_appointment_form'),'form')]"/>
     </record>
 
-    <!-- Menu Item -->
-    <menuitem id="menu_healthcare_root" name="Healthcare"/>
-    <menuitem id="menu_healthcare_appointment" name="Appointments"
-              parent="menu_healthcare_root" action="action_appointment"/>
 </odoo>

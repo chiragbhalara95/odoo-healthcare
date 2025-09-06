@@ -81,8 +81,4 @@
                                    (ref('view_patient_form'),'form')]"/>
     </record>
 
-    <!-- Menu Item -->
-    <menuitem id="menu_healthcare_root" name="Healthcare"/>
-    <menuitem id="menu_healthcare_patient" name="Patients"
-              parent="menu_healthcare_root" action="action_patient"/>
 </odoo>

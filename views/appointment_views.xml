@@ -8,8 +8,8 @@
                 <field name="patient_id"/>
                 <field name="doctor_id"/>
                 <field name="appointment_date"/>
-                <field name="start_time"/>
-                <field name="end_time"/>
+                <field name="start_time" widget="timepicker" options="{'ampm': true, 'step': 5}"/>
+                <field name="end_time" widget="timepicker" readonly="1" options="{'ampm': true, 'step': 5}"/>
                 <field name="mode"/>
                 <field name="state"/>
             </tree>
@@ -32,9 +32,9 @@
                             <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done,cancelled"/>
                         </group>
                         <group>
-                            <field name="start_time"/>
+                            <field name="start_time" widget="timepicker" options="{'ampm': true, 'step': 5}"/> <!-- Time only, AM/PM -->
                             <field name="duration"/>
-                            <field name="end_time" readonly="1"/>
+                            <field name="end_time" widget="timepicker" readonly="1" options="{'ampm': true, 'step': 5}"/>
                         </group>
                     </group>
                     <notebook>
@@ -57,5 +57,4 @@
         <field name="view_mode">tree,form</field>
         <field name="views" eval="[(ref('view_appointment_tree'),'tree'),(ref('view_appointment_form'),'form')]"/>
     </record>
-
 </odoo>

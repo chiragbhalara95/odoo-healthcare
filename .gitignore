@@ -1,0 +1,37 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Odoo log files
+*.log
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# IDE specific
+.vscode/
+.idea/
+
+# Python virtual environments
+.env/
+venv/
+ENV/
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Odoo specific
+*.egg-info/
+*.pot
+*.mo
+
+# Local configs
+*.swp
+*.swo

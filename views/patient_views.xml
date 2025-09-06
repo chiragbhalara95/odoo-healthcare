@@ -5,10 +5,13 @@
         <field name="model">healthcare.patient</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
+                <field name="title"/>
+                <field name="first_name"/>
+                <field name="last_name"/>
                 <field name="dob"/>
                 <field name="gender"/>
                 <field name="phone"/>
+                <field name="email"/>
             </tree>
         </field>
     </record>
@@ -20,11 +23,48 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <group>
-                        <field name="name"/>
+                    <group string="Identity">
+                        <field name="title"/>
+                        <field name="first_name"/>
+                        <field name="middle_name"/>
+                        <field name="last_name"/>
+                        <field name="suffix"/>
                         <field name="dob"/>
                         <field name="gender"/>
                         <field name="phone"/>
+                        <field name="email"/>
+                    </group>
+
+                    <group string="Languages">
+                        <field name="spoken_language"/>
+                        <field name="official_language"/>
+                    </group>
+
+                    <group string="Residential Address">
+                        <field name="street"/>
+                        <field name="city"/>
+                        <field name="province"/>
+                        <field name="postal_code"/>
+                    </group>
+
+                    <group string="Mailing Address">
+                        <field name="is_same_address"/>
+                        <field name="mailing_street" attrs="{'invisible':[('is_same_address','=',True)]}"/>
+                        <field name="mailing_city" attrs="{'invisible':[('is_same_address','=',True)]}"/>
+                        <field name="mailing_province" attrs="{'invisible':[('is_same_address','=',True)]}"/>
+                        <field name="mailing_postal_code" attrs="{'invisible':[('is_same_address','=',True)]}"/>
+                    </group>
+
+                    <group string="Alternative Contact">
+                        <field name="alt_first_name"/>
+                        <field name="alt_last_name"/>
+                        <field name="alt_contact_number"/>
+                        <field name="alt_email"/>
+                        <field name="alt_relationship"/>
+                        <field name="alt_note"/>
+                    </group>
+
+                    <group string="Medical Info">
                         <field name="medical_history"/>
                     </group>
                 </sheet>
@@ -37,6 +77,12 @@
         <field name="name">Patients</field>
         <field name="res_model">healthcare.patient</field>
         <field name="view_mode">tree,form</field>
-        <field name="views" eval="[(ref('view_patient_tree'),'tree'),(ref('view_patient_form'),'form')]"/>
+        <field name="views" eval="[(ref('view_patient_tree'),'tree'),
+                                   (ref('view_patient_form'),'form')]"/>
     </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_healthcare_root" name="Healthcare"/>
+    <menuitem id="menu_healthcare_patient" name="Patients"
+              parent="menu_healthcare_root" action="action_patient"/>
 </odoo>

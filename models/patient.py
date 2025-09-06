@@ -109,3 +109,18 @@ class Patient(models.Model):
         string="Relationship with Patient"
     )
     alt_note = fields.Text(string="Alt. Contact Notes")
+
+    # ------------------------
+    # Display Full Name
+    # ------------------------
+    @property
+    def display_name(self):
+        """Return first name + last name as display name"""
+        return f"{self.first_name or ''} {self.last_name or ''}".strip()
+
+    def name_get(self):
+        result = []
+        for patient in self:
+            name = f"{patient.first_name or ''} {patient.last_name or ''}".strip()
+            result.append((patient.id, name))
+        return result

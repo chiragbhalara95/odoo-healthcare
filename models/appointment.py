@@ -33,7 +33,7 @@ class Appointment(models.Model):
         ('confirmed', 'Confirmed'),
         ('done', 'Done'),
         ('cancelled', 'Cancelled')
-    ], string='Status', default='draft')
+    ], string='Status', default='draft', tracking=True)
 
     name = fields.Char(string="Appointment Name", compute="_compute_name", store=True)
 
@@ -64,3 +64,13 @@ class Appointment(models.Model):
                 hour = rec.start_time.hour
                 # if hour < 9 or hour >= 19:
                 #     raise ValidationError("Start time must be between 9:00 AM and 7:00 PM")
+
+    # Button Methods
+    def action_confirm(self):
+        self.state = 'confirmed'
+
+    def action_done(self):
+        self.state = 'done'
+
+    def action_cancel(self):
+        self.state = 'cancelled'

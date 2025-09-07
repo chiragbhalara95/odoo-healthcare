@@ -1,15 +1,16 @@
 <odoo>
+
     <!-- Appointment Tree View -->
     <record id="view_appointment_tree" model="ir.ui.view">
         <field name="name">healthcare.appointment.tree</field>
         <field name="model">healthcare.appointment</field>
         <field name="arch" type="xml">
-            <tree string="Appointments" default_order="appointment_date desc">
+            <tree string="Appointments" default_order="appointment_date desc" editable="top">
                 <field name="patient_id"/>
                 <field name="doctor_id"/>
                 <field name="appointment_date"/>
-                <field name="start_time" widget="timepicker" options="{'ampm': true, 'step': 5}"/>
-                <field name="end_time" widget="timepicker" readonly="1" options="{'ampm': true, 'step': 5}"/>
+                <field name="start_time" widget="datetime"/>
+                <field name="end_time" widget="datetime" readonly="1"/>
                 <field name="mode"/>
                 <field name="state"/>
             </tree>
@@ -22,6 +23,18 @@
         <field name="model">healthcare.appointment</field>
         <field name="arch" type="xml">
             <form string="Appointment">
+                <!-- Header with buttons -->
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm"
+                            states="draft" class="btn-primary"/>
+                    <button name="action_done" type="object" string="Done"
+                            states="confirmed" class="btn-success"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            states="draft,confirmed" class="btn-danger"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done,cancelled"/>
+                </header>
+
+                <!-- Main form fields -->
                 <sheet>
                     <group>
                         <group>
@@ -29,12 +42,11 @@
                             <field name="doctor_id"/>
                             <field name="appointment_date"/>
                             <field name="mode"/>
-                            <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done,cancelled"/>
                         </group>
                         <group>
-                            <field name="start_time" widget="timepicker" options="{'ampm': true, 'step': 5}"/> <!-- Time only, AM/PM -->
+                            <field name="start_time" widget="datetime"/>
                             <field name="duration"/>
-                            <field name="end_time" widget="timepicker" readonly="1" options="{'ampm': true, 'step': 5}"/>
+                            <field name="end_time" widget="datetime" readonly="1"/>
                         </group>
                     </group>
                     <notebook>
@@ -50,11 +62,26 @@
         </field>
     </record>
 
+    <!-- Appointment Calendar View -->
+    <record id="view_appointment_calendar" model="ir.ui.view">
+        <field name="name">healthcare.appointment.calendar</field>
+        <field name="model">healthcare.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="Appointments" date_start="start_time" date_stop="end_time" color="doctor_id">
+                <field name="name"/> <!-- Shows Patient + Doctor -->
+            </calendar>
+        </field>
+    </record>
+
     <!-- Appointment Action -->
     <record id="action_appointment" model="ir.actions.act_window">
         <field name="name">Appointments</field>
         <field name="res_model">healthcare.appointment</field>
-        <field name="view_mode">tree,form</field>
-        <field name="views" eval="[(ref('view_appointment_tree'),'tree'),(ref('view_appointment_form'),'form')]"/>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="views" eval="[
+            (ref('view_appointment_tree'),'tree'),
+            (ref('view_appointment_form'),'form'),
+            (ref('view_appointment_calendar'),'calendar')
+        ]"/>
     </record>
 </odoo>

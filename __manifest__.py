@@ -8,6 +8,7 @@
         'security/ir.model.access.csv',
         'views/patient_views.xml',
         'views/doctor_views.xml',
+        'views/calendar_views.xml',
         'views/appointment_views.xml',
         'views/menus.xml',
     ],

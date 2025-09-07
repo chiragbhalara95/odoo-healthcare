@@ -1,0 +1,30 @@
+<odoo>
+    <!-- Action for Appointment -->
+    <record id="action_healthcare_appointment" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">healthcare.appointment</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Schedule and manage healthcare appointments here.
+            </p>
+        </field>
+    </record>
+
+    <!-- Calendar View -->
+    <record id="view_healthcare_appointment_calendar" model="ir.ui.view">
+        <field name="name">healthcare.appointment.calendar</field>
+        <field name="model">healthcare.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="Appointments"
+                      date_start="start_time"
+                      date_stop="end_time"
+                      color="doctor_id">
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+                <field name="reason"/>
+                <field name="state"/>
+            </calendar>
+        </field>
+    </record>
+</odoo>

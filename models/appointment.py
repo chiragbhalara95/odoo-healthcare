@@ -48,5 +48,5 @@ class Appointment(models.Model):
         for rec in self:
             if rec.start_time:
                 hour = rec.start_time.hour
-                if hour < 9 or hour >= 19:
-                    raise ValidationError("Start time must be between 9:00 AM and 7:00 PM")
+                # if hour < 9 or hour >= 19:
+                #     raise ValidationError("Start time must be between 9:00 AM and 7:00 PM")

@@ -35,6 +35,20 @@ class Appointment(models.Model):
         ('cancelled', 'Cancelled')
     ], string='Status', default='draft')
 
+    name = fields.Char(string="Appointment Name", compute="_compute_name", store=True)
+
+    @api.depends('patient_id', 'doctor_id')
+    def _compute_name(self):
+        for rec in self:
+            if rec.patient_id:
+                patient_name = f"{rec.patient_id.first_name} {rec.patient_id.last_name}"
+            else:
+                patient_name = "Unknown Patient"
+
+            doctor_name = rec.doctor_id.name if rec.doctor_id else "Unknown Doctor"
+
+            rec.name = f"{patient_name} with {doctor_name}"
+
     @api.depends('start_time', 'duration')
     def _compute_end_time(self):
         for rec in self:

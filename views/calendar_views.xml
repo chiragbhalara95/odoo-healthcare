@@ -19,7 +19,9 @@
             <calendar string="Appointments"
                       date_start="start_time"
                       date_stop="end_time"
-                      color="doctor_id">
+                      color="doctor_id"
+                      mode="day">
+                <field name="name"/>
                 <field name="patient_id"/>
                 <field name="doctor_id"/>
                 <field name="reason"/>
